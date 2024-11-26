@@ -2,17 +2,17 @@
 ## Etat d’avancement Mardi 26 Novembre 2024
 
 
-# Nom des membres du groupe: 
-Azza Mani
-Emna Gharbi
-Jules Leroquais
+## Nom des membres du groupe: 
+- Azza Mani
+- Emna Gharbi
+- Jules Leroquais
 
 
-# Répartition des tâches: 
+## Répartition des tâches: 
 
 
 
-# Planning prévisionnel: 
+## Planning prévisionnel: 
 
 | Tâche                                 | Début | Fin   | Membre | 
 | ------------------------------------- | ------| ----  | ------ |
@@ -25,13 +25,13 @@ Jules Leroquais
 | Créer le NDIS                         | 12/12 | 12/12 |        |
 | Finalisation de la présentation       | 12/12 | 12/12 |        |
 
-# Outils utilisés: 
+## Outils utilisés: 
 Git, VsCode, scapy, Discord
 
-# Attaques: 
+## Attaques: 
 DDOS, Brute Force, Scan de port
 
-# Honeypot:
+## Honeypot:
 	DDOS: https://github.com/aelth/ddospot
 	Brute Force: https://github.com/Cryptix720/HUDINX
 	Scan de port: https://github.com/securitygeneration/Honeyport
