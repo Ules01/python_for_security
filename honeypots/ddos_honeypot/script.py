@@ -4,13 +4,23 @@ import os
 
 app = Flask(__name__)
 
-# Create logs directory relative to script location
-LOG_DIR = os.path.join(os.path.dirname(__file__), "../logs")
+# Log directory setup
+LOG_DIR = "/app/logs"
 os.makedirs(LOG_DIR, exist_ok=True)
 
 # Configure logging
-logging.basicConfig(filename=f'{LOG_DIR}/ddos.log', level=logging.INFO, 
-                    format='%(asctime)s %(message)s')
+logging.basicConfig(
+    filename=f"{LOG_DIR}/ddos.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# Redirect Flask logs to the configured logger
+flask_logger = logging.getLogger('werkzeug')
+flask_logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler(f"{LOG_DIR}/ddos.log")
+file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+flask_logger.addHandler(file_handler)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
