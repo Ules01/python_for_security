@@ -30,6 +30,5 @@ def index():
     return "Port is open", 200
 
 if __name__ == '__main__':
-    random_port = random.choice([21, 22, 80, 443, 3306])
-    logging.info(f"Starting honeypot on port {random_port}")
-    app.run(host='0.0.0.0', port=random_port)
+    logging.info(f"Starting honeypot on port {80}")
+    app.run(host='0.0.0.0', port=80)
