@@ -27,7 +27,11 @@ def login():
     username = request.form.get('username', 'unknown')
     password = request.form.get('password', 'unknown')
     ip = request.remote_addr
-    logging.info(f"Brute force attempt from {ip}: {username} / {password}")
+    
+    if password == "aej" and username == "admin":
+        logging.info(f"Connection on honey account {ip}: {username} / {password}")
+        return "Authentification success", 200
+    logging.info(f"Connection failed {ip}: {username} / {password}")
     return "Access Denied", 401
 
 if __name__ == "__main__":
