@@ -10,4 +10,11 @@ def ddos_attack(ip, port):
 if __name__ == "__main__":
     ip = "localhost"
     port = 8080
-    ddos_attack(ip, port)    
+    with open("attack.log", "+a") as f:
+        f.write(f"DDOS attack over port {port} launched\n\n")
+        f.close()
+    ddos_attack(ip, port)   
+
+    with open("attack.log", "+a") as f:
+        f.write(f"DDOS attack over port {port} done\n\n")
+        f.close() 
