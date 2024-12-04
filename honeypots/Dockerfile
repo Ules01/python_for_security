@@ -19,7 +19,7 @@ RUN mkdir -p logs
 RUN chmod +x start_honeypots.sh
 
 # Expose ports for the honeypots
-EXPOSE 80 22 8080
+EXPOSE 80 3000 8080
 
 # Start honeypots
 CMD ["./start_honeypots.sh"]
