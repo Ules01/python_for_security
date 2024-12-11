@@ -2,6 +2,7 @@ from scapy.all import *
 import threading
 from collections import defaultdict
 import time
+from gmail  import *
 
 # Configuration des seuils
 BRUTE_FORCE_THRESHOLD = 10  # Tentatives par IP sur le même port
@@ -11,6 +12,7 @@ SCAN_THRESHOLD = 100         # Nombre de ports scannés par une même IP
 INTERVAL = 20
 
 CONNECTION_PORT = 3000
+ADMIN = ["jules.leroquais@epita.fr", "emna.gharbi@epita.fr", "azza.mani@epita.fr"]
 
 ignore_src = [3000, 8080, 80]
 
@@ -31,7 +33,7 @@ def detect_brute_force(packet):
     
     #check that is trying to on a connection
 
-    if not packet.haslayer(TCP) or not packet.haslayer(Raw):
+    if not packet.haslayer(Raw):
         return
     
     payload = packet[Raw].load.decode(errors="ignore")
@@ -89,12 +91,35 @@ def clear_list():
     port_scan_tracker.clear()
 
 def check_list():
-    for ip in ddos_ip_src:
-        print(f"[ALERTE] DDoS détecté : IP {ip} a envoyé {len(ddos_tracker[ip])}")
-    for (ip, port) in brute_force_ip_src:
-        print(f"[ALERTE] Brute force détecté : IP {ip} a essayé {len(brute_force_tracker[(ip, port)])} sur le port {port}")
+    alert = False
+    txt =""
+    if len(ddos_ip_src) > 0:
+        alert = True
+        txt = "DDoS detected:\n"
+        for ip in ddos_ip_src:
+            txt += f"\tIP {ip} sent {len(ddos_tracker[ip])} packets\n"
+            print(f"[ALERTE] DDoS détecté : IP {ip} a envoyé {len(ddos_tracker[ip])}")
+
+    if len(brute_force_ip_src) > 0:
+        if alert:
+            txt += "\nBrute Force detected:\n"
+        else:
+            alert = True
+        for (ip, port) in brute_force_ip_src:
+            txt += f"\tIP {ip} tried {len(brute_force_tracker[(ip, port)])} to connect over the port {port}\n"
+            print(f"[ALERTE] Brute force détecté : IP {ip} a essayé {len(brute_force_tracker[(ip, port)])} sur le port {port}")
+    if len(port_scan_ip_src) > 0:
+        if alert:
+            txt += "\nPort Scan detected:\n"
+        else:
+            alert = True
     for ip in port_scan_ip_src:
+        txt += f"\tIP {ip} scanned {len(port_scan_tracker[ip])} ports\n"
         print(f"[ALERTE] Scan de ports détecté : IP {ip} a scanné {len(port_scan_tracker[ip])} ports")
+    if alert:
+        for email in ADMIN:
+            envoyer_email_gmail(email, "[ALERT] NDIS", txt)
+
     clear_list()
 
 def run_in_background():

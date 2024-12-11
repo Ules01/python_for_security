@@ -30,5 +30,3 @@ def envoyer_email_gmail(destinataire, sujet, message):
         print(f"Erreur: {e}")
 
 
-envoyer_email_gmail("emna.gharbi@epita.fr", "TEST", "HELLO")
-envoyer_email_gmail("jules.leroquais@epita.fr", "TEST", "HELLO")
