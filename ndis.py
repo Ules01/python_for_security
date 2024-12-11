@@ -22,6 +22,7 @@ brute_force_tracker = defaultdict(list)
 ddos_tracker = defaultdict(list)
 port_scan_tracker = defaultdict(set)
 
+clear = [int(time.time())]
 def detect_brute_force(packet):
     """Détecte les attaques de brute force sur un port spécifique."""
     src_ip = packet[IP].src
@@ -75,8 +76,22 @@ def detect_port_scan(src_ip, dst_port):
         print(f"[ALERTE] Scan de ports détecté : IP {src_ip} a scanné {len(port_scan_tracker[src_ip])} ports")
         port_scan_ip_src.append(src_ip)
 
+def clear_list():
+    now = int(time.time())
+    if now - clear[0] > 20:
+        ddos_ip_src.clear()
+        brute_force_ip_src.clear()
+        port_scan_ip_src.clear()
+
+        # Données pour suivre l'activité réseau
+        brute_force_tracker.clear()
+        ddos_tracker.clear()
+        port_scan_tracker.clear()
+        clear[0] = now
+
 def packet_handler(packet):
     """Traite les paquets capturés pour détecter des activités suspectes."""
+    clear_list()
     if IP in packet:
         src_ip = packet[IP].src
         if TCP in packet:
@@ -96,6 +111,5 @@ if __name__ == "__main__":
     print("[INFO] Détection en cours... Appuyez sur CTRL+C pour arrêter.")
     # Capture des paquets sur l'interface réseau
     
-    clear_list()
     sniff(iface="lo", prn=packet_handler, filter="tcp", store=0)
     
