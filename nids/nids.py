@@ -6,8 +6,8 @@ from gmail  import *
 
 # Configuration des seuils
 BRUTE_FORCE_THRESHOLD = 10  # Tentatives par IP sur le même port
-DDOS_THRESHOLD = 2000       # Nombre de requêtes d'une IP en moins de 10 secondes
-SCAN_THRESHOLD = 100         # Nombre de ports scannés par une même IP
+DDOS_THRESHOLD = 50       # Nombre de requêtes d'une IP en moins de 10 secondes
+SCAN_THRESHOLD = 10         # Nombre de ports scannés par une même IP
 
 INTERVAL = 20
 
