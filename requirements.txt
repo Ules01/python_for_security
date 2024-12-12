@@ -1,0 +1,5 @@
+pycryptodome
+flask
+scapy
+pwn
+requests

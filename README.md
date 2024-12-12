@@ -36,3 +36,7 @@ DDOS, Brute Force, Scan de port
 	Brute Force: https://github.com/Cryptix720/HUDINX
 	Scan de port: https://github.com/securitygeneration/Honeyport
 
+## Setup and install: 
+pip install -r requirements.txt
+
+
